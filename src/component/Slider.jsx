@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import { useState } from 'react';
 
 const marks = [
   {
@@ -24,19 +25,20 @@ const marks = [
   },
 ];
 
-export default function DiscreteSliderLabel() {
+export default function DiscreteSliderLabel({handleSetLength}) {
+  const [value, setValue] = useState()
 
-  function valuetext(value) {
-    
+  const changeValueState = (event, value) => {
+    handleSetLength(value)
   }
-  
+
   return (
     <Box>
       <Slider
+        onChange={changeValueState}
         defaultValue={8}
         min={0}
         max={32}
-        getAriaValueText={valuetext}
         step={4}
         marks={marks}
         valueLabelDisplay="auto"

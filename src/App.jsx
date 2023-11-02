@@ -31,7 +31,9 @@ function App() {
 	const [generatedPassword, setGeneratedPassword] = useState("");
 
 	// Handle Event
-	
+	const onSetLength = (value) => {
+		setSetting({...setting, length: value});
+	}
 
   return (
 	<section className='w-full h-[100vh] flex justify-center sm:py-10 py-5 bg-background'>
