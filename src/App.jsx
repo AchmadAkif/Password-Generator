@@ -35,6 +35,26 @@ function App() {
 		setSetting({...setting, length: value});
 	}
 
+	const [toggle, setToggle] = useState(false)
+	const handleOptions = (index) => {
+		if (index === 0) {
+			setSetting({...setting, number: !setting.number});
+		}
+		if (index === 1) {
+			setSetting({...setting, symbol: !setting.symbol});
+		}
+		if (index === 2) {
+			setSetting({...setting, uppercase: !setting.uppercase});
+		}
+		if (index === 3) {
+			setSetting({...setting, lowercase: !setting.lowercase});
+		}
+	} 
+
+	const handleGenerate = () => {
+		console.log(setting)
+	}
+
   return (
 	<section className='w-full h-[100vh] flex justify-center sm:py-10 py-5 bg-background'>
 		<div className='flex flex-col justify-between sm:px-16 px-5 font-roboto text-white'>
@@ -49,14 +69,14 @@ function App() {
 					{options.map( e => {
 						return <li className='flex justify-between' key={options.indexOf(e)}>
 							<span className='text-[20px]'>{e}</span>
-							<Switch 
-								onChange={()=>console.log()}
+							<Switch
+								onChange={()=>handleOptions(options.indexOf(e))}
 							/>
 						</li>
 					})}
 				</ul>
 			</div>
-			<Button variant="contained" size='large'>Generate Password</Button>
+			<Button variant="contained" size='large' onClick={handleGenerate}>Generate Password</Button>
 		</div>
 	</section>
   )
