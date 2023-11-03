@@ -51,8 +51,20 @@ function App() {
 		}
 	} 
 
+	const handleError = () => {
+		setIsError(!isError);
+		console.log('error')
+	}
+
+	// Password generation logic
 	const handleGenerate = () => {
-		console.log(setting)
+		if (
+			!setting?.number??
+			!setting?.symbol??
+			!setting?.uppercase??
+			!setting?.lowercase ) {
+				handleError();
+			}
 	}
 
   return (
