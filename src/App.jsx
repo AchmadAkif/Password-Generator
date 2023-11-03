@@ -35,7 +35,6 @@ function App() {
 		setSetting({...setting, length: value});
 	}
 
-	const [toggle, setToggle] = useState(false)
 	const handleOptions = (index) => {
 		if (index === 0) {
 			setSetting({...setting, number: !setting.number});
@@ -51,20 +50,47 @@ function App() {
 		}
 	} 
 
-	const handleError = () => {
-		setIsError(!isError);
-		console.log('error')
-	}
-
 	// Password generation logic
 	const handleGenerate = () => {
 		if (
-			!setting?.number??
-			!setting?.symbol??
-			!setting?.uppercase??
-			!setting?.lowercase ) {
-				handleError();
-			}
+			!setting?.number &&
+			!setting?.symbol &&
+			!setting?.uppercase &&
+			!setting?.lowercase
+		) {
+			setIsError(true);
+			return;
+		}
+
+		setIsError(false);
+		
+		const number = "123456789";
+		const symbol = '!@#$%^&*()_+-={}[]|:;"<>,.?/~';
+		const uppercase ="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		const lowercase = "abcdefghijklmnopqrstuvwxyz";
+		const passwordLength = setting.length;
+
+		let passwordChars = "";
+		let password = "";
+
+		if (setting.number) {
+			passwordChars += number;
+		}
+		if(setting.symbol) {
+			passwordChars += symbol;
+		}
+		if (setting.uppercase) {
+			passwordChars += uppercase;
+		}
+		if (setting.lowercase) {
+			passwordChars += lowercase;
+		}
+
+		for (let i = 0; i < passwordLength; i++) {
+			let randomizeIndex = Math.floor(Math.random()*passwordChars.length);
+			password += passwordChars[randomizeIndex]
+		}
+		console.log(password)
 	}
 
   return (
@@ -74,6 +100,9 @@ function App() {
 				<h1 className='font-agbalumo text-white text-[37px] mb-5'>Password Generator</h1>
 				<label htmlFor="outlined-basic" className='text-[20px]'>Generated Password</label>
 				<TextField id="outlined-basic" variant="filled" disabled fullWidth />
+				{isError && (
+					<span>Please select at least one option</span>
+				)}
 			</div>
 			<div>
 				<ul className='flex flex-col space-y-8'> 
